@@ -1,16 +1,25 @@
-import './App.css'
+import { Routes, Route } from 'react-router-dom'
+
+import Header from './components/Header'
+import Footer from './components/Footer'
+
+import Home from './pages/Home'
+import Polls from './pages/Polls'
+import CreatePoll from './pages/CreatePoll'
 
 function App() {
   return (
-    <div className="container">
-      <h1>Online Szavazási Platform</h1>
+    <>
+      <Header />
 
-      <p>
-        Üdvözöllek az online szavazási rendszerben!
-      </p>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/polls" element={<Polls />} />
+        <Route path="/create-poll" element={<CreatePoll />} />
+      </Routes>
 
-      <button>Szavazások megtekintése</button>
-    </div>
+      <Footer />
+    </>
   )
 }
 
