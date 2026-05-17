@@ -74,7 +74,6 @@ function handleSubmit(event) {
 
       {successMessage && <p className="selected-text">{successMessage}</p>}
       {errorMessage && <p className="error-text">{errorMessage}</p>}
-      {successMessage && <p className="selected-text">{successMessage}</p>}
     </main>
   )
 }
