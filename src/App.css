@@ -200,3 +200,48 @@ button:hover {
 .vote-option:hover {
   background-color: #4c6fff;
 }
+
+.submit-vote-button {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.vote-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* CREATE POLL PAGE*/
+.create-poll-page {
+  min-height: 70vh;
+  padding: 60px;
+  text-align: center;
+}
+
+.create-poll-page h2 {
+  font-size: 42px;
+  margin-bottom: 40px;
+}
+
+.create-poll-form {
+  max-width: 600px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.create-poll-form input {
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+
+  font-size: 18px;
+  background-color: #2a2a2a;
+  color: white;
+}
+
+.create-poll-form input::placeholder {
+  color: #aaa;
+}

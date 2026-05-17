@@ -1,30 +1,18 @@
 import PollCard from '../components/PollCard'
 
-function Polls() {
+function Polls(props) {
   return (
     <main className="polls-page">
       <h2>Aktív szavazások</h2>
 
       <div className="polls-container">
-        <PollCard
-          question="Melyik a kedvenc programozási nyelved?"
-          options={['JavaScript', 'Python', 'C#']}
-        />
-
-        <PollCard
-          question="Melyik a kedvenc játékod?"
-          options={['Minecraft', 'League of Legends', 'CS2']}
-        />
-
-        <PollCard
-          question="Melyik frontend framework a legjobb?"
-          options={['React', 'Vue', 'Angular']}
-        />
-
-        <PollCard
-          question="Melyik keresőmotor a kedvenced?"
-          options={['Google', 'Yahoo', 'Bing']}
-        />
+        {props.polls.map((poll) => (
+          <PollCard
+            key={poll.id}
+            question={poll.question}
+            options={poll.options}
+          />
+        ))}
       </div>
     </main>
   )
