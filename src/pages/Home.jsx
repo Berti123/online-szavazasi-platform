@@ -1,15 +1,21 @@
+import { Link } from 'react-router-dom'
+
 function Home() {
   return (
     <main className="home">
       <section className="hero">
-        <h2>Szavazz egyszerűen és gyorsan</h2>
+        <h2>Online szavazási platform</h2>
 
         <p>
-          Hozz létre szavazásokat, oszd meg másokkal,
-          és nézd meg az eredményeket valós időben.
+          Ez az alkalmazás lehetőséget ad szavazások létrehozására,
+          megjelenítésére és a felhasználói válaszok kezelésére.
+          A rendszer célja egy egyszerű, átlátható és könnyen használható
+          online szavazási felület biztosítása.
         </p>
 
-        <button>Szavazások megtekintése</button>
+        <Link to="/polls" className="hero-button">
+          Aktív szavazások megtekintése
+        </Link>
       </section>
     </main>
   )

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 function Header() {
   return (
@@ -8,13 +8,13 @@ function Header() {
       <nav>
         <ul className="nav-links">
           <li>
-            <Link to="/">Kezdőlap</Link>
+            <NavLink to="/">Kezdőlap</NavLink>
           </li>
           <li>
-            <Link to="/polls">Szavazások</Link>
+            <NavLink to="/polls">Szavazások</NavLink>
           </li>
           <li>
-            <Link to="/create-poll">Új szavazás</Link>
+            <NavLink to="/create-poll">Új szavazás</NavLink>
           </li>
         </ul>
       </nav>

@@ -6,27 +6,35 @@ function CreatePoll(props) {
   const [optionTwo, setOptionTwo] = useState('')
   const [optionThree, setOptionThree] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
 
 function handleSubmit(event) {
   event.preventDefault()
 
-  if (question && optionOne && optionTwo && optionThree) {
-    const newPoll = {
-      id: Date.now(),
-      question: question,
-      options: [optionOne, optionTwo, optionThree]
-    }
-
-    props.addPoll(newPoll)
-
-    setSuccessMessage('A szavazás sikeresen létrejött!')
-
-    setQuestion('')
-    setOptionOne('')
-    setOptionTwo('')
-    setOptionThree('')
+  if (!question || !optionOne || !optionTwo || !optionThree) {
+    setErrorMessage('Minden mező kitöltése kötelező!')
+    setSuccessMessage('')
+    return
   }
+
+  const newPoll = {
+    id: Date.now(),
+    question: question,
+    options: [optionOne, optionTwo, optionThree]
+  }
+
+  props.addPoll(newPoll)
+
+  setSuccessMessage('A szavazás sikeresen létrejött!')
+  setErrorMessage('')
+
+  setQuestion('')
+  setOptionOne('')
+  setOptionTwo('')
+  setOptionThree('')
 }
+
 
   return (
     <main className="create-poll-page">
@@ -64,6 +72,8 @@ function handleSubmit(event) {
         <button type="submit">Szavazás létrehozása</button>
       </form>
 
+      {successMessage && <p className="selected-text">{successMessage}</p>}
+      {errorMessage && <p className="error-text">{errorMessage}</p>}
       {successMessage && <p className="selected-text">{successMessage}</p>}
     </main>
   )
