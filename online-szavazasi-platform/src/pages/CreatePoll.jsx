@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function CreatePoll(props) {
+function CreatePoll() {
+  const navigate = useNavigate()
+
   const [question, setQuestion] = useState('')
   const [optionOne, setOptionOne] = useState('')
   const [optionTwo, setOptionTwo] = useState('')
@@ -8,33 +11,51 @@ function CreatePoll(props) {
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
+  async function handleSubmit(event) {
+    event.preventDefault()
 
-function handleSubmit(event) {
-  event.preventDefault()
+    if (!question || !optionOne || !optionTwo || !optionThree) {
+      setErrorMessage('Minden mező kitöltése kötelező!')
+      setSuccessMessage('')
+      return
+    }
 
-  if (!question || !optionOne || !optionTwo || !optionThree) {
-    setErrorMessage('Minden mező kitöltése kötelező!')
-    setSuccessMessage('')
-    return
+    try {
+      const response = await fetch('http://127.0.0.1:5000/polls', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: question,
+          description: 'Felhasználó által létrehozott szavazás',
+          options: [optionOne, optionTwo, optionThree],
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setErrorMessage(data.error)
+        setSuccessMessage('')
+        return
+      }
+
+      setSuccessMessage(data.message)
+      setErrorMessage('')
+
+      setQuestion('')
+      setOptionOne('')
+      setOptionTwo('')
+      setOptionThree('')
+
+      navigate('/polls')
+    } catch (error) {
+      setErrorMessage('Hiba történt a szavazás létrehozása közben.')
+      setSuccessMessage('')
+      console.error(error)
+    }
   }
-
-  const newPoll = {
-    id: Date.now(),
-    question: question,
-    options: [optionOne, optionTwo, optionThree]
-  }
-
-  props.addPoll(newPoll)
-
-  setSuccessMessage('A szavazás sikeresen létrejött!')
-  setErrorMessage('')
-
-  setQuestion('')
-  setOptionOne('')
-  setOptionTwo('')
-  setOptionThree('')
-}
-
 
   return (
     <main className="create-poll-page">

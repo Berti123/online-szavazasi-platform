@@ -1,47 +1,21 @@
-import { useState } from 'react'
-
-function PollCard(props) {
-  const [selectedOption, setSelectedOption] = useState(null)
-  const [submittedVote, setSubmittedVote] = useState(null)
-
-  function handleVoteSubmit() {
-    if (selectedOption !== null) {
-      setSubmittedVote(selectedOption)
-    }
-  }
-
+function PollCard({ poll, onDelete }) {
   return (
     <div className="poll-card">
-      <h3>{props.question}</h3>
+      <h2>{poll.title}</h2>
+      <p>{poll.description}</p>
 
-      <div className="vote-options">
-        {props.options.map((option, index) => (
-          <button
-            key={index}
-            className={
-              selectedOption === option
-                ? 'vote-option selected'
-                : 'vote-option'
-            }
-            onClick={() => setSelectedOption(option)}
-            disabled={submittedVote !== null}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
+      <div className="poll-card-actions">
+        <a href={`/polls/${poll.id}`} className="button">
+          Szavazás megnyitása
+        </a>
 
-      {submittedVote === null && (
-        <button className="submit-vote-button" onClick={handleVoteSubmit}>
-          Szavazat leadása
+        <button
+          className="delete-button"
+          onClick={() => onDelete(poll.id)}
+        >
+          Törlés
         </button>
-      )}
-
-      {submittedVote !== null && (
-        <p className="selected-text">
-          Sikeres szavazás: {submittedVote}
-        </p>
-      )}
+      </div>
     </div>
   )
 }

@@ -133,3 +133,41 @@ def CreatePoll():
         "message": "Szavazas sikeresen letrehozva",
         "poll_id": new_poll_id
     }), 201
+    
+    
+# Szavazas torlese
+@polls_bp.route("/polls/<int:poll_id>", methods=["DELETE"])
+def DeletePoll(poll_id):
+    connection = GetConnection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT * FROM polls
+        WHERE id = ?
+    """, (poll_id,))
+
+    poll = cursor.fetchone()
+
+    if poll is None:
+        connection.close()
+
+        return jsonify({
+            "error": "Szavazas nem talalhato"
+        }), 404
+
+    cursor.execute("""
+        DELETE FROM votes
+        WHERE poll_id = ?
+    """, (poll_id,))
+
+    cursor.execute("""
+        DELETE FROM polls
+        WHERE id = ?
+    """, (poll_id,))
+
+    connection.commit()
+    connection.close()
+
+    return jsonify({
+        "message": "Szavazas sikeresen torolve"
+    })
